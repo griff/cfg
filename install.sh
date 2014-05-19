@@ -187,7 +187,7 @@ if [ ! -e $cfg_folder ];
 fi
 
 assets=$(ls -A1 $cfg_folder | egrep -v $ignored | xargs);
-bad_assets=$(find $home -maxdepth 1 -type l ! -exec test -e {} \; -exec readlink {} \; | egrep "^$cfg_folder" | xargs basename -a)
+bad_assets=$(find $home -maxdepth 1 -type l ! -exec test -e {} \; -exec readlink {} \; | egrep "^$cfg_folder" | xargs basename -a | xargs)
 echo "|* tracking assets: [ $assets $bad_assets ] "
 echo "|* linking assets in $home"
 link_assets
