@@ -21,7 +21,7 @@ function dur {
         home="$HOME";
     fi
     if git --git-dir="$home/.cfg/.git" check -q; then
-      git --git-dir="$home/.cfg/.git" pull --ff-only origin
+      $home/.cfg/install.sh
     else
       echo ".cfg has uncommitted changes"
     fi
