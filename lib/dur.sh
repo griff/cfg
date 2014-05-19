@@ -11,7 +11,10 @@ function dur {
     $HOME/.cfg/install.sh
     ;;
   reinstall|re)
-    curl -Ls https://raw.github.com/durdn/cfg/master/install.sh | bash
+    curl -Ls https://raw.github.com/griff/cfg/master/install.sh | bash
+    ;;
+  status|s)
+    
     ;;
   move|mv)
     git remote add bitbucket git@bitbucket.org:durdn/$(basename $(pwd)).git
