@@ -13,6 +13,7 @@ cfgname=".cfg";
 bkpname="backup.cfg";
 gitrepo="git@github.com:griff/cfg.git";
 gitrepo_ro="git://github.com/griff/cfg.git";
+gitrepo_archive="https://github.com/griff/cfg/archive/master.tar.gz"
 ignored="install.sh|.git$|.gitmodule|.gitignore|README|bin|install|lib|libexec";
 
 #----debug setup----
@@ -140,7 +141,7 @@ if [ ! -e $cfg_folder ];
       then
         #git is not available, juzt unpack the zip file
         echo "|* git not available downloading zip file..."
-        curl -LsO https://github.com/durdn/cfg/archive/master.tar.gz
+        curl -LsO "$gitrepo_archive"
         tar zxvf master.tar.gz
         mv cfg-master $home/.cfg
         rm master.tar.gz
