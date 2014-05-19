@@ -1,0 +1,53 @@
+[alias]
+  a = add
+  ae = add --edit
+  ap = add --patch
+  st = status
+  ci = commit
+  br = branch
+  co = checkout
+  cp = cherry-pick
+  di = diff-index
+  df = diff
+  lg = log -p
+  fl = flow
+  diff-index = diff --cached HEAD
+  unclean-working = diff --no-ext-diff --ignore-submodules --quiet --exit-code
+  unclean-index = diff-index --cached --quiet --ignore-submodules HEAD --
+  undo-commit = reset --soft HEAD^
+  add-patch = add --patch
+  add-edit = add --edit
+  who = shortlog -s --
+  lc = log ORIG_HEAD.. --stat --no-merges
+  llog = log --date=local
+  changes=diff --name-status -r
+  diffstat=diff --stat -r
+  whois = "!sh -c 'git log -i -1 --pretty=\"format:%an <%ae>\n\" --author=\"$1\"' -"
+  whatis = show -s --pretty='tformat:%h (%s, %ad)' --date=short
+  graphviz = "!f() { echo 'digraph git {' ; git log --pretty='format:  %h -> { %p }' \"$@\" | sed 's/[0-9a-f][0-9a-f]*/\"&\"/g' ; echo '}'; }; f"
+  lol = log --graph --decorate --pretty=format:\"%h %Cblue%aN%Creset %s\"
+[push]
+  default = matching
+[user]
+  name = Brian Olsen
+  email = brian@maven-group.org
+  signingkey = B2AB4FDF
+[gitflow "branch"]
+  master = master
+  develop = develop
+[gitflow "prefix"]
+  feature = feature/
+  release = release/
+  hotfix = hotfix/
+  support = support/
+  versiontag = v
+[difftool]
+  prompt = false
+[core]
+  excludesfile = /Users/bro/.gitignore_global
+[difftool "sourcetree"]
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  path = 
+[mergetool "sourcetree"]
+  cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true

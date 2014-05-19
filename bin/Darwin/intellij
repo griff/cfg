@@ -1,0 +1,12 @@
+#!/bin/sh
+set -x
+
+FILE=.
+if [ -n "$1" ]; then
+  FILE="$1"
+fi
+if [ -d "$FILE" ]; then
+  cd $FILE
+  FILE=.
+fi
+open -b com.jetbrains.intellij "$FILE"

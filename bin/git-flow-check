@@ -1,0 +1,10 @@
+#!/bin/bash
+
+branch=`git symbolic-ref HEAD`
+branch="${branch#refs/heads/}"
+rp=`git config --get gitflow.prefix.release`
+hp=`git config --get gitflow.prefix.hotfix`
+if [ "${branch#$rp}" == "$branch" -a "${branch#$hp}" == "$branch" ]; then
+  echo "Must be on release or hotfix branch to release"
+  exit -1
+fi

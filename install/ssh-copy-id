@@ -1,0 +1,8 @@
+if [ $(uname) == "Darwin" ]; then
+  if [ $debug = false ];
+    then brew install ssh-copy-id
+    else echo brew install ssh-copy-id
+  fi
+else
+  echo "Could not install ssh-copy-id"
+fi

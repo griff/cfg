@@ -1,0 +1,4 @@
+if [ $debug = false ];
+  then brew install terminal-notifier
+  else brew install terminal-notifier
+fi

@@ -1,0 +1,83 @@
+#!/bin/bash
+RVM_LOC=`which rvm`
+if [ -n "$RVM_LOC" ]; then
+  echo "Setting ruby to system using RVM"
+  [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
+  rvm use system
+else
+  . $HOME/.cfg/lib/pathremove
+  export PATH=`pathremove "$PATH" "$HOME/.rbenv/shims" "$HOME/.rbenv/bin" "./vendor/bin"`
+fi
+set -o errexit
+VERSION=Current
+
+while true; do
+  case "$1" in
+    --server) 
+      shift
+      export JAVA_OPTS="-server"
+      ;;
+    --client)
+      shift
+      export JAVA_OPTS="-client"
+      ;;
+    --debug)
+      shift
+      RUN_PREFIX="jpda"
+      export JPDA_SUSPEND=y
+      ;;
+    --root)
+      shift
+      NAME="ROOT"
+      ;;
+    --version)
+      VERSION="$2"
+      shift
+      shift
+      ;;
+    --*)
+      echo "Usage: tomcat [--server|--client|--debug|--root] [--version <tomcat version>] <war file>"
+    *)
+      break;
+  esac
+done
+CATALINA_HOME=$HOME/tomcat/$VERSION
+
+TEMP_BASE=`mktemp -d -t tomcat`
+BASE=`basename $TEMP_BASE`
+CATALINA_BASE=$HOME/tmp/$BASE
+mkdir -p $HOME/tmp/
+#ln -s "$TEMP_BASE" "$CATALINA_BASE" 
+echo "CATALINA_BASE: $CATALINA_BASE"
+export CATALINA_BASE
+export CATALINA_HOME
+
+mkdir -p $CATALINA_BASE/{bin,conf,logs,temp,webapps,work}
+#cp $CATALINA_HOME/bin/setenv.sh $CATALINA_BASE/bin
+cp $CATALINA_HOME/conf/server.xml $CATALINA_BASE/conf
+cp $CATALINA_HOME/conf/web.xml $CATALINA_BASE/conf
+cp $CATALINA_HOME/conf/context.xml $CATALINA_BASE/conf
+
+mkdir -p $CATALINA_BASE/conf/Catalina/localhost/
+
+WAR=$1
+if [ -z "$NAME" ] ; then
+  NAME=`basename $WAR .war`
+fi
+echo $CATALINA_BASE/webapps/$NAME.war
+cp -v $WAR $CATALINA_BASE/webapps/$NAME.war
+
+cleanup() (
+  if [ -L "$CATALINA_BASE" ] ; then
+    unlink $CATALINA_BASE
+  elif [ -d "$CATALINA_BASE" ] ; then
+    rm -rf $CATALINA_BASE
+  fi
+  rm -rf $TEMP_BASE
+)
+
+trap "cleanup" 1 2 15 EXIT
+
+$CATALINA_HOME/bin/catalina.sh $RUN_PREFIX run
+
+

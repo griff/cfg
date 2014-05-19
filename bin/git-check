@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# shell output
+report() { echo "$@" >&2; }
+
+git_is_clean() {
+	if ! git diff --no-ext-diff --ignore-submodules --quiet --exit-code; then
+	  return 1
+	elif ! git diff-index --cached --quiet --ignore-submodules HEAD --; then
+	  return 2
+	else
+	  return 0
+	fi
+}
+
+git_is_clean
+local result=$?
+if [ -z "$1" ]; then
+	if [ $result -eq 1 ]; then
+		report "fatal: Working tree contains unstaged changes. Aborting."
+	elif [ $result -eq 2 ]; then
+		report "fatal: Index contains uncommited changes. Aborting."
+	fi
+elif [ "$1" != "-q" -a "$1" != "--quiet" ]; then
+	echo "Usage: git-check [-q|--quiet]"
+	exit -1
+fi
+exit $result

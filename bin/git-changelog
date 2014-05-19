@@ -1,0 +1,16 @@
+#!/bin/bash
+
+LOG_FORMAT=" * %h %s"
+for version in $(git tag | sort -r); do
+  if [ -z "$next" ]; then
+    echo -e "$(git describe) ($(date +'%Y-%m-%d'))\n=============================\n"
+    git --no-pager log --format="$LOG_FORMAT" $version..HEAD
+  else
+    echo -e "$next ($(git log -1 --date=short --format=%ad $next))\n=============================\n"
+    git --no-pager log --format="$LOG_FORMAT" $version..$next
+  fi
+  echo -e "\n\n"
+  next=$version
+done
+echo -e "$next ($(git log -1 --date=short --format=%ad $next))\n=============================\n"
+git --no-pager log --format="$LOG_FORMAT" $next

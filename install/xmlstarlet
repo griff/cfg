@@ -1,0 +1,19 @@
+case "$(uname)" in
+  Darwin)
+    if [ $debug = false ];
+      then brew install xmlstarlet
+      else echo brew install xmlstarlet
+    fi
+    ;;
+  Linux)
+    if [ $(lsb_release -is) == "Ubuntu" ]; then
+      if [ $debug = false ];
+        then sudo apt-get install -y xmlstarlet
+        else echo sudo apt-get install -y xmlstarlet
+      fi
+    fi
+    ;;
+  *)
+    echo "Don't know how to install xmlstarlet"
+    ;;
+esac

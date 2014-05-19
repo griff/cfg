@@ -1,0 +1,4 @@
+if [ $debug = false ];
+  then brew install class-dump
+  else echo brew install class-dump
+fi

@@ -1,0 +1,11 @@
+#!/bin/sh
+set -o errexit
+
+# less sends line number as a first argument of +<line-num>
+line="$1"
+line="${line#+}"
+if [ "$line" != "$1" ] && [[ "$line" =~ ^[0-9]+$ ]] && [ -n "$2" -a -z "$3" ]; then
+  exec subl -n -w "$2:$line"
+fi
+
+exec subl -n -w "$@"
