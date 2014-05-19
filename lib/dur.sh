@@ -21,7 +21,19 @@ function dur {
         home="$HOME";
     fi
     if git --git-dir="$home/.cfg/.git" check -q; then
-      $home/.cfg/install.sh
+      branch_orig_hash="$(git show-ref -s --verify refs/heads/master 2> /dev/null)"
+      git --git-dir="$home/.cfg/.git" fetch -q origin master
+      branch_remote_hash="$(git show-ref -s --verify refs/remotes/origin/master 2> /dev/null)"
+      if [ "$branch_orig_hash" != "$branch_remote_hash" ]; then
+        if ! git --git-dir="$home/.cfg/.git" pull --ff-only -q origin master 2> /dev/null; then
+          echo ".cfg could not be fast-forwarded"
+        fi
+      fi
+      branch_hash="$(git show-ref -s --verify refs/heads/master 2> /dev/null)"
+      if [ "$branch_orig_hash" != "$branch_hash" ]; then
+        echo ".cfg has been updated. Reinstalling..."
+        $home/.cfg/install.sh
+      fi
     else
       echo ".cfg has uncommitted changes"
     fi
