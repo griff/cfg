@@ -106,6 +106,14 @@ link_assets() {
         fi
     fi
   done
+  for asset in $bad_assets; do
+    echo "D [delete] $home/$asset";
+    if [ $debug = false ]; then
+      unlink $home/$asset
+    else
+      echo unlink $home/$asset
+    fi
+done
 }
 
 install_commands() {
@@ -179,7 +187,8 @@ if [ ! -e $cfg_folder ];
 fi
 
 assets=$(ls -A1 $cfg_folder | egrep -v $ignored | xargs);
-echo "|* tracking assets: [ $assets ] "
+bad_assets=$(find $home -maxdepth 1 -type l ! -exec test -e {} \; -exec readlink {} \; | egrep "^$cfg_folder" | xargs basename -a)
+echo "|* tracking assets: [ $assets $bad_assets ] "
 echo "|* linking assets in $home"
 link_assets
 
