@@ -182,7 +182,7 @@ if [ ! -e $cfg_folder ];
   else
     echo "|-> cfg already cloned to $cfg_folder"
     echo "|-> pulling origin master"
-    cd $cfg_folder && git pull origin master
+    cd $cfg_folder && git pull --ff-only origin master
     update_submodules
 fi
 
