@@ -11,8 +11,8 @@ if [ $(whoami) = "root" ];
 fi
 cfgname=".cfg";
 bkpname="backup.cfg";
-gitrepo="git@github.com:durdn/cfg.git";
-gitrepo_ro="git://github.com/durdn/cfg.git";
+gitrepo="git@github.com:griff/cfg.git";
+gitrepo_ro="git://github.com/griff/cfg.git";
 ignored="install.sh|.git$|.gitmodule|.gitignore|README|bin|install|lib|libexec";
 
 #----debug setup----
