@@ -33,8 +33,8 @@ function dur {
           git fetch -q origin master
           touch $home/.cfg-check
         fi
-        ahead=$(git rev-list --right-only --boundary @{u}.. | wc -l)
-        behind=$(git rev-list --left-only --boundary @{u}.. | wc -l)
+        ahead=$(git rev-list --right-only --boundary @{u}... | egrep "^-" | wc -l)
+        behind=$(git rev-list --left-only --boundary @{u}... | egrep "^-" | wc -l)
         if [ $ahead -gt 0 -o $behind -gt 0 ]; then
           if [ $ahead -gt 0 -a $behind -eq 0 ]; then
             echo ".cfg ahead by $ahead. Pushing..."
