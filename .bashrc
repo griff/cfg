@@ -163,16 +163,6 @@ if [ $(uname) == "Darwin" ]; then
 
   # docker setting
   export DOCKER_HOST=tcp://localhost:4243
-
-  gpg-agent --daemon -q
-  if [ -f "${HOME}/.gpg-agent-info" ]; then
-     . "${HOME}/.gpg-agent-info"
-    export GPG_AGENT_INFO
-    export SSH_AUTH_SOCK
-    export SSH_AGENT_PID
-  fi
-  GPG_TTY=$(tty)
-  export GPG_TTY
 fi
 
 # }}}
