@@ -7,11 +7,10 @@
   br = branch
   co = checkout
   cp = cherry-pick
-  di = diff-index
+  di = diff --cached HEAD
   df = diff
   lg = log -p
   fl = flow
-  diff-index = diff --cached HEAD
   unclean-working = diff --no-ext-diff --ignore-submodules --quiet --exit-code
   unclean-index = diff-index --cached --quiet --ignore-submodules HEAD --
   undo-commit = reset --soft HEAD^
