@@ -14,7 +14,17 @@ function dur {
     curl -Ls https://raw.github.com/griff/cfg/master/install.sh | bash
     ;;
   status|s)
-    
+    if [ $(whoami) = "root" ];
+      then
+        home="/root";
+      else
+        home="$HOME";
+    fi
+    if git --git-dir="$home/.cfg/.git" check -q; then
+      git --git-dir="$home/.cfg/.git" pull --ff-only origin
+    else
+      echo ".cfg has uncommitted changes"
+    fi
     ;;
   move|mv)
     git remote add bitbucket git@bitbucket.org:durdn/$(basename $(pwd)).git
