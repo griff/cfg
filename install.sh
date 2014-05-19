@@ -12,7 +12,7 @@ fi
 cfgname=".cfg";
 bkpname="backup.cfg";
 gitrepo="git@github.com:griff/cfg.git";
-gitrepo_ro="git://github.com/griff/cfg.git";
+gitrepo_ro="https://github.com/griff/cfg.git";
 gitrepo_archive="https://github.com/griff/cfg/archive/master.tar.gz"
 ignored="install.sh|.git$|.gitmodule|.gitignore|README|bin|install|lib|libexec";
 
