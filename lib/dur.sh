@@ -21,7 +21,7 @@ function dur {
         home="$HOME";
     fi
     (
-      export GIT_DIR="$home/.cfg/.git"
+      cd $home/.cfg
       if git check -q; then
         branch_orig_hash="$(git show-ref -s --verify refs/heads/master 2> /dev/null)"
         git fetch -q origin master
