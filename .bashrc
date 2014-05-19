@@ -75,6 +75,13 @@ if [ $(uname) == "Linux" ]; then
       alias egrep='egrep --color=auto'
   fi
 
+  if [ -f "/usr/share/bash-completion/completions/git" ]; then
+    . /usr/share/bash-completion/completions/git
+  fi
+  if [ -n "$(command -v __git_main)" ]; then
+    __git_complete g __git_main
+  fi
+
   #alias assumed="git ls-files -v | grep ^[a-z] | sed -e 's/^h\ //'"
   alias assumed="git ls-files -v | grep ^h | sed -e 's/^h\ //'"
   # Add an "alert" alias for long running commands.  Use like so: sleep 10; alert
