@@ -11,6 +11,8 @@
   df = diff
   lg = log -p
   fl = flow
+  pl = pull
+  p = push
   unclean-working = diff --no-ext-diff --ignore-submodules --quiet --exit-code
   unclean-index = diff-index --cached --quiet --ignore-submodules HEAD --
   undo-commit = reset --soft HEAD^
