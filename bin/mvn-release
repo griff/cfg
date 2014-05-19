@@ -1,0 +1,89 @@
+#!/bin/bash
+set -o errexit
+[ -n "$DEBUG" ] && set -x
+
+START=`date +%s`
+
+function usage {
+  echo "mvnrelease <version> [next snapshot] [tag]"
+  exit 1
+}
+
+if [ -n "$1" ] ; then
+  VERSION=$1
+fi
+
+if [ -n "$2" ] ; then
+  NEXT=$2
+  shift
+else
+  NEXT=$VERSION
+fi
+
+if [ -n "$2" ] ; then
+  TAG=$2
+fi
+if [ -d ".git" ] ; then
+  if git show-ref --verify --quiet refs/heads/develop ; then
+    RELEASE="$(checkgitflow)"
+  fi
+  if [ -z "$VERSION" ]; then
+    if [ -z "$RELEASE" ]; then
+      usage
+    else
+      VERSION="$RELEASE"
+    fi
+  fi
+
+  if [ -z "$TAG" ]; then
+    if [[ -n "$(git config --get gitflow.prefix.versiontag)" ]] ; then
+      TAG=$(git config --get gitflow.prefix.versiontag)$VERSION
+    else
+      TAG=$VERSION
+    fi
+  fi
+  gitlocalcheck
+else
+  if [ -z "$VERSION" ]; then
+    usage
+  fi
+  if [ -z "$TAG" ]; then
+    TAG=$VERSION
+  fi
+  svnlocalcheck   
+fi
+
+CURRENT=`xmledit pom.xml '/project/version'`
+if [ "${CURRENT:0-9}" != "-SNAPSHOT" ] ; then
+  xmledit pom.xml '/project/version' $VERSION-SNAPSHOT pom.xml
+  git add pom.xml
+
+  # handle sub-modules
+  for k in `xmledit pom.xml /project/modules/module` ; do
+    xmledit $k/pom.xml /project/parent/version $VERSION-SNAPSHOT $k/pom.xml
+    git add $k/pom.xml
+  done
+  git ci -m "Updated POM to version $VERSION-SNAPSHOT before release"
+fi
+mvn -B -DreleaseVersion=$VERSION -Dtag=$TAG -DdevelopmentVersion=$NEXT release:prepare
+mvn release:perform
+
+#echo $VERSION > latestRelease
+#svn ci -m 'Updated latestRelease' latestRelease
+
+if [ -n "$NEXT" && "${NEXT:0-9}" != "-SNAPSHOT" ] ; then
+  xmledit pom.xml '/project/version' $NEXT pom.xml
+  git add pom.xml
+  
+  # handle sub-modules
+  for k in `xmledit pom.xml /project/modules/module` ; do
+    xmledit $k/pom.xml /project/parent/version $NEXT $k/pom.xml
+    git add $k/pom.xml
+  done
+  git ci -m "Updated POM to released version $NEXT"
+  git push
+fi
+git push origin tag $TAG
+
+RUN=$((`date +%s` - $START))
+echo "Release time: $RUN"
