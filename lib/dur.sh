@@ -66,10 +66,6 @@ function dur {
     #track all remote branches of a project
     for remote in $(git branch -r | grep -v master ); do git checkout --track $remote ; done
     ;;
-  key|k)
-    #track all remote branches of a project
-    ssh $2 'mkdir -p .ssh && cat >> .ssh/authorized_keys' < ~/.ssh/id_rsa.pub
-    ;;
   fun|f)
     #list all custom bash functions defined
     typeset -F | col 3 | grep -v _ | xargs | fold -sw 60
@@ -85,7 +81,6 @@ function dur {
     echo " [i]nstall,[m]o[v]e, [re]install"
     echo " [f]fun lists all bash functions defined in .bashrc"
     echo " [def] <fun> lists definition of function defined in .bashrc"
-    echo " [k]ey <host> copies ssh key to target host"
     echo " [tr]ackall], [h]elp"
     ;;
   esac
