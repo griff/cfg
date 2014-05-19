@@ -34,7 +34,6 @@ export TERM=xterm-256color
 # }}}
 
 for k in $HOME/.cfg/lib/*.sh; do
-  echo "Loading: $k"
   . $k
 done
 
