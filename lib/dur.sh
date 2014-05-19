@@ -13,7 +13,7 @@ function dur {
   reinstall|re)
     curl -Ls https://raw.github.com/griff/cfg/master/install.sh | bash
     ;;
-  status|s)
+  check|chk)
     if [ $(whoami) = "root" ];
       then
         home="/root";
@@ -24,10 +24,27 @@ function dur {
       cd $home/.cfg
       if git check -q; then
         branch_orig_hash="$(git show-ref -s --verify refs/heads/master 2> /dev/null)"
-        git fetch -q origin master
-        branch_remote_hash="$(git show-ref -s --verify refs/remotes/origin/master 2> /dev/null)"
-        if [ "$branch_orig_hash" != "$branch_remote_hash" ]; then
-          if ! git pull --ff-only -q origin master 2> /dev/null; then
+        if [ ! -f $home/.cfg-check ]; then
+          echo ".cfg fetch"
+          git fetch -q origin master
+          touch $home/.cfg-check
+        elif [ -n "$(find $home/.cfg-check -mmin +1440)" ]; then
+          echo ".cfg fetch"
+          git fetch -q origin master
+          touch $home/.cfg-check
+        fi
+        ahead=$(git rev-list --right-only --boundary @{u}.. | wc -l)
+        behind=$(git rev-list --left-only --boundary @{u}.. | wc -l)
+        if [ $ahead -gt 0 -o $behind -gt 0 ]; then
+          if [ $ahead -gt 0 -a $behind -eq 0 ]; then
+            echo ".cfg ahead by $ahead. Pushing..."
+            git push -q origin master
+          elif [ $ahead -eq 0 -a $behind -gt 0 ]; then
+            echo ".cfg behind by $behind. Merging..."
+            if ! git merge --ff-only -q origin master 2> /dev/null; then
+              echo ".cfg could not be fast-forwarded"
+            fi
+          else
             echo ".cfg could not be fast-forwarded"
           fi
         fi
