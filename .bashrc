@@ -210,5 +210,5 @@ export PATH="./vendor/bin:$PATH"
 #    ;;
 #esac
 #PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
-
+dur status
 
