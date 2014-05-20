@@ -42,6 +42,8 @@ function _wrap_alias() {
 
   eval "
 function ${wrapper_name}() {
+  COMP_LINE=\"${aliased_command} ${alias_arguments}\${COMP_LINE#$alias_name}\"
+  ((COMP_POINT+=${#alias_arguments}-${#alias_name}+${#aliased_command}+1))
   ((COMP_CWORD+=$num_alias_arguments))
   args=( \"${alias_arguments}\" )
   COMP_WORDS=( $aliased_command \${args[@]} \${COMP_WORDS[@]:1} )
