@@ -73,13 +73,6 @@ if [ $(uname) == "Linux" ]; then
       alias egrep='egrep --color=auto'
   fi
 
-  if [ -f "/usr/share/bash-completion/completions/git" ]; then
-    . /usr/share/bash-completion/completions/git
-  fi
-  if [ -n "$(command -v __git_main)" ]; then
-    __git_complete g __git_main
-  fi
-
   #alias assumed="git ls-files -v | grep ^[a-z] | sed -e 's/^h\ //'"
   alias assumed="git ls-files -v | grep ^h | sed -e 's/^h\ //'"
   # Add an "alert" alias for long running commands.  Use like so: sleep 10; alert
@@ -149,8 +142,6 @@ if [ $(uname) == "Darwin" ]; then
   if [ -f `brew --prefix`/etc/bash_completion ]; then
     . `brew --prefix`/etc/bash_completion
   fi
-  __git_complete g __git_main
-
 
   #Java home setting
   export JAVA_HOME=$(/usr/libexec/java_home)
@@ -175,6 +166,10 @@ if [ $(uname) == "MINGW32_NT-5.1" ]; then
   alias egrep='egrep --color=auto'
 fi
 # }}}
+
+# Autocomplete for aliases
+wrap_aliases
+
 export PATH="./vendor/bin:$PATH"
 
 #complete -c .
