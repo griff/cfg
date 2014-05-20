@@ -14,6 +14,11 @@ function _wrap_alias() {
   local alias_arguments="$3"
   local num_alias_arguments=$(echo "$alias_arguments" | wc -w)
 
+  if ! complete -p $aliased_command > /dev/null 2>&1; then
+    if command -v _completion_loader > /dev/null 2>&1; then
+      _completion_loader $aliased_command || test $? -eq 124
+    fi
+  fi
   # The completion currently being used for the aliased command.
   local completion=$(complete -p $aliased_command 2> /dev/null)
 
