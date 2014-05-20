@@ -39,14 +39,14 @@ done
 
 #Global aliases  {{{
 alias g='git'
-alias gs='git status '
-alias ga='git add '
-alias gb='git branch '
-alias gc='git commit '
-alias gd='git diff '
+alias gs='git status'
+alias ga='git add'
+alias gb='git branch'
+alias gc='git commit'
+alias gd='git diff'
 alias gi='git di'
 #alias go='git checkout '
-alias vimo='vim -O '
+alias vimo='vim -O'
 alias laste='tail -1000 ~/.bash_history | grep ^vim | col 2'
 function list-patch {
   git log --oneline --decorate --numstat -1 $1 | tail -n +2 | awk {'print $3'}
