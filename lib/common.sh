@@ -83,9 +83,24 @@ function scratch {
   $EDITOR ~/Dropbox/$(openssl rand -base64 10 | tr -dc 'a-zA-Z').txt
 }
 
-function mvn {
-  command mvn "$@"; alert
-}
+case "$(uname)" in
+  Darwin)
+    function alert {
+      terminal-notifier -sender com.apple.Terminal -activate com.apple.Terminal -message "$([ $? = 0 ] && echo terminal || echo error)" -title "$(history|tail -n1|sed -E -e 's/^[ ]*[0-9]+[ ]*//;s/[;&|][ ]*alert$//')"
+    }
+    ;;
+  Linux)
+    function alert {
+      echo notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e 's/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//')"
+    }
+    ;;
+esac
+
+if [ -n "$(command -v alert)" ]; then
+  function mvn {
+    command mvn "$@"; alert
+  }
+fi
 function mvn-debug-test {
   local run_test=$1
   shift

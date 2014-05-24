@@ -76,7 +76,6 @@ if [ $(uname) == "Linux" ]; then
   #alias assumed="git ls-files -v | grep ^[a-z] | sed -e 's/^h\ //'"
   alias assumed="git ls-files -v | grep ^h | sed -e 's/^h\ //'"
   # Add an "alert" alias for long running commands.  Use like so: sleep 10; alert
-  alias alert='echo notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
   #apt aliases
   alias apt='sudo apt-get'
@@ -122,7 +121,6 @@ if [ $(uname) == "Darwin" ]; then
   alias gitx='open -a GitX'
   alias grp='grep -RIi'
   alias assumed="git ls-files -v | grep ^[a-z] | sed -e 's/^h\ //'"
-  alias alert='terminal-notifier -sender com.apple.Terminal -activate com.apple.Terminal -message "$([ $? = 0 ] && echo terminal || echo error)" -title "$(history|tail -n1|sed -E -e '\''s/^[ ]*[0-9]+[ ]*//;s/[;&|][ ]*alert$//'\'')"'
 
   #setup maven
   if [ -d "$HOME/.m2/versions/Current" ]; then
