@@ -2,6 +2,8 @@
 # Author: Brian Olsen <brian@maven-group.org>
 # Source: http://github.com/griff/cfg/.bashrc
 
+if [ -n "$TERM" -a "$TERM" != "dumb" ]; then
+
 #Global options {{{
 export HISTFILESIZE=999999
 export HISTSIZE=999999
@@ -193,3 +195,4 @@ export PATH="./vendor/bin:$PATH"
 #PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
 dur check
 
+fi
