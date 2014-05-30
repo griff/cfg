@@ -41,7 +41,7 @@ function dur {
             git push -q origin master
           elif [ $ahead -eq 0 -a $behind -gt 0 ]; then
             echo ".cfg behind by $behind. Merging..."
-            if ! git merge --ff-only -q origin master 2> /dev/null; then
+            if ! git merge --ff-only -q origin/master 2> /dev/null; then
               echo ".cfg could not be fast-forwarded"
             fi
           else
