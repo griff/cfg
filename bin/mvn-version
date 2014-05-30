@@ -1,9 +1,10 @@
 #!/bin/sh
 set -o errexit
+[ -n "$DEBUG" ] && set -x
 
 if [ -z "$1" ] ; then
   xmlstarlet sel -N "pm=http://maven.apache.org/POM/4.0.0" -t -v '/pm:project/pm:version' pom.xml
-  exit 1
+  exit 0
 fi
 git check
 mvn versions:set -DgenerateBackupPoms=false -DnewVersion=$1
