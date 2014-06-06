@@ -5,8 +5,9 @@ if [ -n "$RVM_LOC" ]; then
   [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
   rvm use system
 else
-  . $HOME/.cfg/lib/pathremove
-  export PATH=`pathremove "$PATH" "$HOME/.rbenv/shims" "$HOME/.rbenv/bin" "./vendor/bin"`
+  MUH="$(echo $PATH | awk -v RS=: '{ print $1 }' | grep -v "$HOME/.rbenv/shims" \
+    | grep -v "$HOME/.rbenv/bin" | grep -v "./vendor/bin" | tr "\\n" ":")"
+  export PATH="${MUH%:}"
 fi
 set -o errexit
 VERSION=Current
@@ -37,8 +38,10 @@ while true; do
       ;;
     --*)
       echo "Usage: tomcat [--server|--client|--debug|--root] [--version <tomcat version>] <war file>"
+      ;;
     *)
       break;
+      ;;
   esac
 done
 CATALINA_HOME=$HOME/tomcat/$VERSION
