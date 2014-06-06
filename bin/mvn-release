@@ -72,7 +72,7 @@ mvn release:perform
 #echo $VERSION > latestRelease
 #svn ci -m 'Updated latestRelease' latestRelease
 
-if [ -n "$NEXT" && "${NEXT:0-9}" != "-SNAPSHOT" ] ; then
+if [ "${NEXT:0-9}" != "-SNAPSHOT" ] ; then
   mvn-version "$NEXT"
   git add pom.xml
 
