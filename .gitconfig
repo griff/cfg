@@ -19,6 +19,7 @@
   m = merge --ff-only
   pl = pull
   p = push
+  rc = rebase --continue
   s = status
   sh = show
   st = status
