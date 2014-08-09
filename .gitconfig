@@ -23,6 +23,7 @@
   s = status
   sh = show
   st = status
+  t = tag
   add-patch = add --patch
   add-edit = add --edit
   lol = log --graph --decorate --pretty=format:\"%h %Cblue%aN%Creset %s\"
