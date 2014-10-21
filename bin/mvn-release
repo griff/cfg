@@ -18,8 +18,6 @@ fi
 if [ -n "$2" ] ; then
   NEXT=$2
   shift
-else
-  NEXT=$VERSION
 fi
 
 if [ -n "$2" ] ; then
@@ -66,13 +64,22 @@ if [ "${CURRENT:0-9}" != "-SNAPSHOT" ] ; then
   done
   git ci -m "Updated POM to version $VERSION-SNAPSHOT before release"
 fi
-mvn -B -DreleaseVersion=$VERSION -Dtag=$TAG -DdevelopmentVersion=$NEXT release:prepare
+if [ -n "$NEXT" ]; then
+  echo mvn -B -DreleaseVersion=$VERSION -Dtag=$TAG -DdevelopmentVersion=$NEXT release:prepare
+  mvn -B -DreleaseVersion=$VERSION -Dtag=$TAG -DdevelopmentVersion=$NEXT release:prepare
+else
+  echo mvn -B -DreleaseVersion=$VERSION -Dtag=$TAG release:prepare
+  mvn -B -DreleaseVersion=$VERSION -Dtag=$TAG release:prepare
+fi
 mvn release:perform
 
 #echo $VERSION > latestRelease
 #svn ci -m 'Updated latestRelease' latestRelease
 
 if [ "${NEXT:0-9}" != "-SNAPSHOT" ] ; then
+  if [ -z "$NEXT" ]; then
+    NEXT="$VERSION"
+  fi
   mvn-version "$NEXT"
   git add pom.xml
 
