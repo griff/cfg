@@ -1,0 +1,8 @@
+Subject (50 chars or less) in the imperative mode
+
+More detail wrapped at 72 chars.
+
+# Use one the these 3 links to issues
+#   References: ???
+#   Fix: ???
+#   Closes: ???
