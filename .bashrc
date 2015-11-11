@@ -110,6 +110,7 @@ if [ $(uname) == "Darwin" ]; then
   export PATH=$HOME/.cfg/bin/Darwin:/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH
   export MANPATH=/usr/local/man:/opt/local/share/man:$MANPATH
   export EDITOR=wsubl
+  export DYLD_FALLBACK_LIBRARY_PATH=$HOME/lib:/usr/local/lib:/lib:/usr/lib:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/
 
   #aliases 
   alias ls='ls -G'
