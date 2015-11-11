@@ -98,7 +98,11 @@ esac
 
 if [ -n "$(command -v alert)" ]; then
   function mvn {
-    command mvn "$@"; alert
+    command noidle mvn "$@"; alert
+  }
+else
+  function mvn {
+    command noidle mvn "$@"
   }
 fi
 function mvn-debug-test {

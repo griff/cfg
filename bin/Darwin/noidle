@@ -1,0 +1,22 @@
+#!/bin/bash
+
+pmset noidle & 
+NOIDLE_PID=$!
+
+do_exit() {
+  set +o errexit
+  trap - INT EXIT TERM
+  cleanup_pmset
+  exit 1
+}
+
+cleanup_pmset() {
+  echo "Killing pmset..."
+  kill $NOIDLE_PID
+}
+trap do_exit INT EXIT TERM
+
+"$@"
+
+trap - INT EXIT TERM
+cleanup_pmset
