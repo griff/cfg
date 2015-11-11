@@ -217,3 +217,10 @@ fi
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+if [ -f "$HOME/.rancher.sh" ]; then
+  . "$HOME/.rancher.sh"
+fi
+
+# added by travis gem
+[ -f /Users/bro/.travis/travis.sh ] && source /Users/bro/.travis/travis.sh
