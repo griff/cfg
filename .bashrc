@@ -47,9 +47,6 @@ alias gi='git di'
 #alias go='git checkout '
 alias vimo='vim -O'
 alias laste='tail -1000 ~/.bash_history | grep ^vim | col 2'
-function list-patch {
-  git log --oneline --decorate --numstat -1 $1 | tail -n +2 | awk {'print $3'}
-}
 alias drun="docker run"
 alias dps="docker ps"
 alias dimg="docker images"

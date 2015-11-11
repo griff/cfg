@@ -1,5 +1,5 @@
 set completion-ignore-case On
-set bell-style none
+set bell-style visible
 set editing-mode emacs
 
 $if mode=vi

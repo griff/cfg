@@ -96,13 +96,19 @@ case "$(uname)" in
     ;;
 esac
 
-if [ -n "$(command -v alert)" ]; then
+if [ -n "$(command -v noidle)" ]; then
+  if [ -n "$(command -v alert)" ]; then
+    function mvn {
+      command noidle mvn "$@"; alert
+    }
+  else
+    function mvn {
+      command noidle mvn "$@"
+    }
+  fi
+elif [ -n "$(command -v alert)" ]; then
   function mvn {
-    command noidle mvn "$@"; alert
-  }
-else
-  function mvn {
-    command noidle mvn "$@"
+    command mvn "$@"; alert
   }
 fi
 function mvn-debug-test {
