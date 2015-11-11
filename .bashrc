@@ -17,7 +17,7 @@ shopt -s progcomp
 #export PROMPT_COMMAND="history -a; history -n;"
 
 #!! sets vi mode for shell
-set -o vi
+#set -o vi
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
