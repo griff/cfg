@@ -29,6 +29,11 @@ export PATH=$HOME/.cfg/bin:$PATH
 #set the terminal type to 256 colors
 export TERM=xterm-256color
 
+if [ $(uname) == "Darwin" ]; then
+  #export PATH=/usr/local/mysql/bin:$HOME/bin:/opt/local/sbin:/opt/local/bin:$PATH
+  #export PATH=/Users/nick/.clj/bin:$PATH
+  export PATH=$HOME/.cfg/bin/Darwin:/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH
+fi
 
 # }}}
 
@@ -102,9 +107,6 @@ fi
 # }}}
 # OSX specific config {{{
 if [ $(uname) == "Darwin" ]; then
-  #export PATH=/usr/local/mysql/bin:$HOME/bin:/opt/local/sbin:/opt/local/bin:$PATH
-  #export PATH=/Users/nick/.clj/bin:$PATH
-  export PATH=$HOME/.cfg/bin/Darwin:/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH
   export MANPATH=/usr/local/man:/opt/local/share/man:$MANPATH
   export EDITOR=wsubl
   export DYLD_FALLBACK_LIBRARY_PATH=$HOME/lib:/usr/local/lib:/lib:/usr/lib:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/
