@@ -224,5 +224,9 @@ if [ -f "$HOME/.rancher.sh" ]; then
   . "$HOME/.rancher.sh"
 fi
 
+if [ -f "$HOME/.drone.sh" ]; then
+  . "$HOME/.drone.sh"
+fi
+
 # added by travis gem
 [ -f /Users/bro/.travis/travis.sh ] && source /Users/bro/.travis/travis.sh
