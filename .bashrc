@@ -229,4 +229,4 @@ if [ -f "$HOME/.drone.sh" ]; then
 fi
 
 # added by travis gem
-[ -f /Users/bro/.travis/travis.sh ] && source /Users/bro/.travis/travis.sh
+[ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
