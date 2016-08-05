@@ -114,5 +114,6 @@ fi
 function mvn-debug-test {
   local run_test=$1
   shift
-  mvn -Dtest=$run_test -Dmaven.surefire.debug $@  
+  echo mvn -Dtest=$run_test -Dmaven.surefire.debug $@  
+  mvn -Dtest=$run_test -Dmaven.surefire.debug "$@"
 }
