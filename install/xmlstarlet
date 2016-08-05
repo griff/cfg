@@ -6,10 +6,17 @@ case "$(uname)" in
     fi
     ;;
   Linux)
-    if [ $(lsb_release -is) == "Ubuntu" ]; then
+    if [ -n "$(command -v lsb_release)" ]; then
+      if [ $(lsb_release -is) == "Ubuntu" ]; then
+        if [ $debug = false ];
+          then sudo apt-get install -y xmlstarlet
+          else echo sudo apt-get install -y xmlstarlet
+        fi
+      fi
+    elif [ -n "$(command -v nixos-version)" ]; then
       if [ $debug = false ];
-        then sudo apt-get install -y xmlstarlet
-        else echo sudo apt-get install -y xmlstarlet
+        then nix-env -i xmlstarlet
+        else echo nix-env -i xmlstarlet
       fi
     fi
     ;;
