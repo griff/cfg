@@ -145,7 +145,7 @@ if [ $(uname) == "Darwin" ]; then
 
   # Vagrant settings
   export VAGRANT_VMWARE_CLONE_DIRECTORY=~/.vagrant_clone
-  export VAGRANT_DEFAULT_PROVIDER=vmware_fusion
+  #export VAGRANT_DEFAULT_PROVIDER=vmware_fusion
 
   # docker setting
   export DOCKER_HOST=tcp://localhost:4243
