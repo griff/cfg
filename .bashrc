@@ -148,7 +148,7 @@ if [ $(uname) == "Darwin" ]; then
   #export VAGRANT_DEFAULT_PROVIDER=vmware_fusion
 
   # docker setting
-  export DOCKER_HOST=tcp://localhost:4243
+  #export DOCKER_HOST=tcp://localhost:4243
 
   if [ -f "${HOME}/.gpg-agent-info" ]; then 
     . "${HOME}/.gpg-agent-info" 
