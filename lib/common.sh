@@ -1,3 +1,14 @@
+#alias github="open \`git config -l | grep 'remote.origin.url' | sed -En \
+#  's/remote.origin.url=git(@|:\/\/)github.com(:|\/)(.+)\/(.+).git/https:\/\/github.com\/\3\/\4/p'\`"
+function github {
+  local giturl="$(git config --get remote.origin.url | sed -En 's/git(@|:\/\/)github.com(:|\/)(.*)\/(.*).git/https:\/\/github.com\/\3\/\4/p')"
+  if [[ -n "$giturl" ]]; then
+    open "$giturl"
+  else
+    echoerr "Not a github repository $(git config --get remote.origin.url)"
+  fi
+}
+
 function list-patch {
   git log --oneline --decorate --numstat -1 $1 | tail -n +2 | awk {'print $3'}
 }

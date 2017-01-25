@@ -61,8 +61,6 @@ alias dps="docker ps"
 alias dimg="docker images"
 alias dbuild="docker build"
 alias dlog="docker log"
-alias github="open \`git config -l | grep 'remote.origin.url' | sed -En \
-  's/remote.origin.url=git(@|:\/\/)github.com(:|\/)(.+)\/(.+).git/https:\/\/github.com\/\3\/\4/p'\`"
 
 # Linux specific config {{{
 if [ $(uname) == "Linux" ]; then
