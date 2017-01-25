@@ -32,6 +32,9 @@ function skip {
     cut -d' ' -f$n-
 }
 
+function echoerr {
+  echo "$@" 1>&2
+}
 
 function xr {
   case $1 in
