@@ -50,7 +50,7 @@ function ${wrapper_name}() {
   COMP_LINE=\"${aliased_command} ${alias_arguments}\${COMP_LINE#$alias_name}\"
   ((COMP_POINT+=${#alias_arguments}-${#alias_name}+${#aliased_command}+1))
   ((COMP_CWORD+=$num_alias_arguments))
-  args=( \"${alias_arguments}\" )
+  args=( ${alias_arguments} )
   COMP_WORDS=( $aliased_command \"\${args[@]}\" \"\${COMP_WORDS[@]:1}\" )
   $completion_function
   }
@@ -69,7 +69,7 @@ function ${wrapper_name}() {
 wrap_aliases() {
 # For each defined alias, extract the necessary elements and use them
   # to call wrap_alias.
-  eval "$(alias -p | sed -e 's/alias \([^=][^=]*\)='\''\([^ ][^ ;]*\) *\(.*\)'\''/_wrap_alias \1 '\''\2'\'' '\''\3'\'' /')"
+  eval "$(alias -p | sed -ne 's/alias \([^=][^=]*\)='\''\([^ ][^ ;]*\) *\([^|]*\)'\''/_wrap_alias \1 '\''\2'\'' '\''\3'\'' /p')"
 
   unset _wrap_alias
   unset wrap_aliases
