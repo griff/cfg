@@ -239,3 +239,6 @@ export NVM_DIR="$HOME/.nvm"
 export UMPLOY_KEY="$HOME/.cfg/umploy.key"
 
 export PATH="$HOME/.cargo/bin:$PATH"
+
+PROMPT_TITLE='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\007"'
+export PROMPT_COMMAND="${PROMPT_TITLE}; ${PROMPT_COMMAND}"
