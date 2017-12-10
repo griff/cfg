@@ -8,7 +8,7 @@ function dur {
     git clone git@bitbucket.org:durdn/$2.git
     ;;
   install|i)
-    $HOME/.cfg/install.sh
+    bash $HOME/.cfg/install.sh
     ;;
   reinstall|re)
     curl -Ls https://raw.github.com/griff/cfg/master/install.sh | bash
@@ -51,7 +51,7 @@ function dur {
         branch_hash="$(git show-ref -s --verify refs/heads/master 2> /dev/null)"
         if [ "$branch_orig_hash" != "$branch_hash" ]; then
           echo ".cfg has been updated. Reinstalling..."
-          $home/.cfg/install.sh
+          bash $home/.cfg/install.sh
         fi
       else
         echo ".cfg has uncommitted changes"
