@@ -15,8 +15,8 @@ case "$(uname)" in
       fi
     elif [ -n "$(command -v nixos-version)" ]; then
       if [ $debug = false ];
-        then nix-env -i xmlstarlet
-        else echo nix-env -i xmlstarlet
+        then nix-env -iA nixos.xmlstarlet
+        else echo nix-env -iA nixos.xmlstarlet
       fi
     fi
     ;;
