@@ -44,7 +44,7 @@
 [user]
   name = Brian Olsen
   email = brian@maven-group.org
-  signingkey = B2AB4FDF
+  signingKey = 348182DC0E06A8FC1F01FB3AE95F7F83D78B7DAC
 [gitflow "branch"]
   master = master
   develop = develop
