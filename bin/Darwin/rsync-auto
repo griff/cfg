@@ -1,0 +1,20 @@
+#!/bin/sh
+set -o errexit
+#set -x
+
+if [ -z "$2" -o -z "$1" ]; then
+  echo "rsync-auto [dir] <rsync options> [remote]"
+  exit 1
+fi
+
+DIR="$1"
+shift
+
+if [[ "$1" == "--trigger" ]]; then
+  shift 2
+  echo rsync -av --progress "$DIR" "$@"
+  exec rsync -av --progress "$DIR" "$@"
+else
+  "$0" "$DIR" --trigger 1 "$@"
+  fswatch -r -o "$DIR" | xargs -n1 -J % "$0" "$DIR" --trigger % "$@"
+fi
