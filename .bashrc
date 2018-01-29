@@ -24,6 +24,30 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
+if [ -d "$HOME/.nix-profile/etc" ]; then
+  if [ -d "$HOME/.nix-profile/etc/profile.d" ]; then
+    for k in $HOME/.nix-profile/etc/profile.d/* ; do
+      . "$k"
+    done
+  fi
+  if [ -d "$HOME/.nix-profile/etc/bash_completion.d" ]; then
+    for k in $HOME/.nix-profile/etc/bash_completion.d/* ; do
+      . "$k"
+    done
+  fi
+elif
+  if [ -d "/nix/var/nix/profiles/default/etc/profile.d" ]; then
+    for k in /nix/var/nix/profiles/default/etc/profile.d/* ; do
+      . "$k"
+    done
+  fi
+  if [ -d "/nix/var/nix/profiles/default/etc/bash_completion.d" ]; then
+    for k in /nix/var/nix/profiles/default/etc/bash_completion.d/* ; do
+      . "$k"
+    done
+  fi
+fi
+
 #path should have durdn config bin folder
 export PATH=$HOME/.cfg/bin:$PATH
 #set the terminal type to 256 colors
@@ -243,8 +267,4 @@ export PATH="$HOME/.cargo/bin:$PATH"
 PROMPT_TITLE='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\007"'
 export PROMPT_COMMAND="${PROMPT_TITLE}; ${PROMPT_COMMAND}"
 
-if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then 
-  . "$HOME/.nix-profile/etc/profile.d/nix.sh";
-elif [ -e "/nix/var/nix/profiles/default/etc/profile.d/nix.sh" ]; then
-  . /nix/var/nix/profiles/default/etc/profile.d/nix.sh
-fi
+
