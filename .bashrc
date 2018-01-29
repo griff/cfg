@@ -182,7 +182,12 @@ if [ $(uname) == "Darwin" ]; then
         unset GPG_AGENT_INFO
         unset SSH_AUTH_SOCK
         unset SSH_AGENT_PID
-  	gpg-agent --daemon 
+        if [[ -e "/usr/local/MacGPG2/bin/gpgconf" ]]; then
+          /usr/local/MacGPG2/bin/gpgconf --launch gpg-agent
+        else
+          gpgconf --launch gpg-agent
+          #gpg-agent --daemon 
+        fi
     fi
   fi
   if [ -f "${HOME}/.gpg-agent-info" ]; then 
