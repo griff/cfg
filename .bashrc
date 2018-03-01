@@ -35,7 +35,7 @@ if [ -d "$HOME/.nix-profile/etc" ]; then
       . "$k"
     done
   fi
-elif
+elif [ -d "/nix/var/nix/profiles/default/etc" ]; then
   if [ -d "/nix/var/nix/profiles/default/etc/profile.d" ]; then
     for k in /nix/var/nix/profiles/default/etc/profile.d/* ; do
       . "$k"
