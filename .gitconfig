@@ -42,8 +42,8 @@
 [push]
   default = matching
 [user]
-  name = Brian Olsen
-  email = brian@maven-group.org
+	name = Brian Olsen
+	email = brian@maven-group.org
   signingKey = 348182DC0E06A8FC1F01FB3AE95F7F83D78B7DAC
 [gitflow "branch"]
   master = master
@@ -57,12 +57,12 @@
 [difftool]
   prompt = false
 [core]
-  excludesfile = /Users/bro/.gitignore_global
+	excludesfile = /Users/bro/.gitignore_global
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
 [mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 [include]
     path = .gitconfig_host
