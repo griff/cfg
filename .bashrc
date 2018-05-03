@@ -176,25 +176,15 @@ if [ $(uname) == "Darwin" ]; then
   # docker setting
   #export DOCKER_HOST=tcp://localhost:4243
 
-  if [ -f "${HOME}/.gpg-agent-info" ]; then 
-    . "${HOME}/.gpg-agent-info" 
-    if [ ! -S "${SSH_AUTH_SOCK}" ]; then
-        unset GPG_AGENT_INFO
-        unset SSH_AUTH_SOCK
-        unset SSH_AGENT_PID
-        if [[ -e "/usr/local/MacGPG2/bin/gpgconf" ]]; then
-          /usr/local/MacGPG2/bin/gpgconf --launch gpg-agent
-        else
-          gpgconf --launch gpg-agent
-          #gpg-agent --daemon 
-        fi
+  if [ ! -S "$HOME/.gnupg/S.gpg-agent.ssh" ]; then
+    if [[ -e "/usr/local/MacGPG2/bin/gpgconf" ]]; then
+      /usr/local/MacGPG2/bin/gpgconf --launch gpg-agent
+    else
+      gpgconf --launch gpg-agent
     fi
   fi
-  if [ -f "${HOME}/.gpg-agent-info" ]; then 
-    . "${HOME}/.gpg-agent-info" 
-    export GPG_AGENT_INFO 
-    export SSH_AUTH_SOCK 
-    export SSH_AGENT_PID 
+  if [ -S "$HOME/.gnupg/S.gpg-agent.ssh" ]; then
+    export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
   fi
 
   GPG_TTY=$(tty) 
