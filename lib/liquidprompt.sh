@@ -555,7 +555,7 @@ _lp_shorten_path()
 
     local ret=""
 
-    local p="${PWD/#$HOME/~}"
+    local p="${PWD/#$HOME/\~}"
     local mask="${LP_MARK_SHORTEN_PATH}"
     local -i max_len=$(( ${COLUMNS:-80} * $LP_PATH_LENGTH / 100 ))
 

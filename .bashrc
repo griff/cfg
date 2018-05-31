@@ -261,7 +261,8 @@ export UMPLOY_KEY="$HOME/.cfg/umploy.key"
 
 export PATH="$HOME/.cargo/bin:$PATH"
 
-PROMPT_TITLE='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\007"'
+# Update prompt title so that Timing gets updated correctly
+PROMPT_TITLE='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\007"'
 export PROMPT_COMMAND="${PROMPT_TITLE}; ${PROMPT_COMMAND}"
 
 # Make sure the history is updated at every command
