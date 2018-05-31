@@ -13,8 +13,6 @@ export FTP_PASSIVE=1
 shopt -s histappend
 shopt -s checkwinsize
 shopt -s progcomp
-#make sure the history is updated at every command
-#export PROMPT_COMMAND="history -a; history -n;"
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
@@ -262,4 +260,6 @@ export PATH="$HOME/.cargo/bin:$PATH"
 PROMPT_TITLE='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\007"'
 export PROMPT_COMMAND="${PROMPT_TITLE}; ${PROMPT_COMMAND}"
 
+# Make sure the history is updated at every command
+export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}"
 
