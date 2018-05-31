@@ -84,6 +84,23 @@ alias dimg="docker images"
 alias dbuild="docker build"
 alias dlog="docker log"
 
+run_gpgconf() {
+  if [[ -e "/usr/local/MacGPG2/bin/gpgconf" ]]; then
+    /usr/local/MacGPG2/bin/gpgconf "$@"
+  else
+    gpgconf "$@"
+  fi
+}
+
+if [ -f "$HOME/.gnupg/gpg-agent.conf" ]; then
+  export SSH_AUTH_SOCK="$(run_gpgconf --list-dir agent-ssh-socket)"
+  if [ ! -S "$SSH_AUTH_SOCK" ]; then
+    run_gpgconf --launch gpg-agent
+  fi
+  GPG_TTY=$(tty)
+  export GPG_TTY
+fi
+
 # Linux specific config {{{
 if [ $(uname) == "Linux" ]; then
   shopt -s autocd
@@ -173,20 +190,6 @@ if [ $(uname) == "Darwin" ]; then
 
   # docker setting
   #export DOCKER_HOST=tcp://localhost:4243
-
-  if [ ! -S "$HOME/.gnupg/S.gpg-agent.ssh" ]; then
-    if [[ -e "/usr/local/MacGPG2/bin/gpgconf" ]]; then
-      /usr/local/MacGPG2/bin/gpgconf --launch gpg-agent
-    else
-      gpgconf --launch gpg-agent
-    fi
-  fi
-  if [ -S "$HOME/.gnupg/S.gpg-agent.ssh" ]; then
-    export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
-  fi
-
-  GPG_TTY=$(tty) 
-  export GPG_TTY
 
 fi
 
