@@ -236,9 +236,6 @@ export PATH="./vendor/bin:$PATH"
 #    ;;
 #esac
 #PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
-dur check
-
-fi
 
 export GOPATH=$HOME/gopath
 export PATH="$PATH:$GOPATH/bin"
@@ -270,3 +267,5 @@ export PROMPT_COMMAND="${PROMPT_TITLE}; ${PROMPT_COMMAND}"
 # Make sure the history is updated at every command
 export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}"
 
+dur check
+fi # End of dump terminal check
