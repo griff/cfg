@@ -101,6 +101,16 @@ if [ -f "$HOME/.gnupg/gpg-agent.conf" ]; then
   export GPG_TTY
 fi
 
+if [ -n "$(command -v atom)" ]; then
+  export EDITOR=watom
+elif [ -n "$(command -v subl)" ]; then
+  export EDITOR=wsubl
+elif [ -n "$(command -v vim)" ]; then
+  export EDITOR=vim
+else
+  export EDITOR=vi
+fi
+
 # Linux specific config {{{
 if [ $(uname) == "Linux" ]; then
   shopt -s autocd
@@ -135,11 +145,6 @@ if [ $(uname) == "Linux" ]; then
     export PATH="$HOME/.rbenv/bin:$PATH"
     eval "$(rbenv init -)";
   fi
-  if [ -n "$(command -v vim)" ]; then
-    export EDITOR=vim
-  else
-    export EDITOR=vi
-  fi
 
   #PATH=$PATH:$HOME/dev/apps/node/bin
 fi
@@ -149,10 +154,9 @@ fi
 # OSX specific config {{{
 if [ $(uname) == "Darwin" ]; then
   export MANPATH=/usr/local/man:/opt/local/share/man:$MANPATH
-  export EDITOR=wsubl
   export DYLD_FALLBACK_LIBRARY_PATH=$HOME/lib:/usr/local/lib:/lib:/usr/lib:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/
 
-  #aliases 
+  #aliases
   alias ls='ls -G'
   alias ll='ls -lG'
   alias la='ls -alG'
