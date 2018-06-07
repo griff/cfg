@@ -59,6 +59,9 @@ fi
 
 # }}}
 
+if [[ $- = *i* ]]; then
+  . $HOME/.cfg/liquidprompt/liquidprompt
+fi
 for k in $HOME/.cfg/lib/*.sh; do
   . $k
 done
