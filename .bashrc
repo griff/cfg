@@ -270,6 +270,9 @@ PROMPT_COMMAND="${PROMPT_TITLE}; ${PROMPT_COMMAND}"
 
 # Make sure the history is updated at every command
 PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}"
+if [ -n "$IN_NIX_SHELL" ]; then
+  prompt_tag nix-shell
+fi
 
 dur check
 fi # End of dump terminal check
