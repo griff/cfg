@@ -34,7 +34,6 @@ md5prog() {
 }
 
 update_submodules() {
-  return;
   if [ $debug == true ];
     then
       cd $cfg_folder
@@ -144,7 +143,7 @@ fi
 
 #clone config folder if not present, update if present
 if [ ! -e $cfg_folder ];
-  then 
+  then
     if [ -z $(command -v git) ]
       then
         #git is not available, juzt unpack the zip file
