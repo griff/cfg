@@ -266,13 +266,14 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 # Update prompt title so that Timing gets updated correctly
 PROMPT_TITLE='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\007"'
+if [ -n "$IN_NIX_SHELL" ]; then
+  prompt_tag nix-shell
+  PROMPT_TITLE='echo -ne "\033]0;nix-shell ${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\007"'
+fi
 PROMPT_COMMAND="${PROMPT_TITLE}; ${PROMPT_COMMAND}"
 
 # Make sure the history is updated at every command
 PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}"
-if [ -n "$IN_NIX_SHELL" ]; then
-  prompt_tag nix-shell
-fi
 
 dur check
 fi # End of dump terminal check
