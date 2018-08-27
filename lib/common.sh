@@ -128,6 +128,13 @@ fi
 function mvn-debug-test {
   local run_test=$1
   shift
-  echo mvn -Dtest=$run_test -Dmaven.surefire.debug $@  
+  echo mvn -Dtest=$run_test -Dmaven.surefire.debug $@
   mvn -Dtest=$run_test -Dmaven.surefire.debug "$@"
+}
+function op {
+  if [ "$1" == "signin" ]; then
+    eval $(command op "$@")
+  else
+    command op "$@"
+  fi
 }
