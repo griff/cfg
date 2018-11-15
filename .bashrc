@@ -270,7 +270,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # Update prompt title so that Timing gets updated correctly
 PROMPT_TITLE='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\007"'
 if [ -n "$IN_NIX_SHELL" ]; then
-  prompt_tag nix-shell
+  prompt_tag "nix-shell($name)"
   PROMPT_TITLE='echo -ne "\033]0;nix-shell ${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\007"'
 fi
 PROMPT_COMMAND="${PROMPT_TITLE}; ${PROMPT_COMMAND}"
