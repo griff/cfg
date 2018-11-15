@@ -33,6 +33,9 @@ if [ -d "$HOME/.nix-profile/etc" ]; then
       . "$k"
     done
   fi
+elif [ -f "$HOME/.nixpkgs/darwin-configuration.nix" ]; then
+  # Do nothing when nix-darwin is detected
+  true
 elif [ -d "/nix/var/nix/profiles/default/etc" ]; then
   if [ -d "/nix/var/nix/profiles/default/etc/profile.d" ]; then
     for k in /nix/var/nix/profiles/default/etc/profile.d/* ; do
