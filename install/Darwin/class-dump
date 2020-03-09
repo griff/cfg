@@ -1,4 +1,8 @@
-if [ $debug = false ];
-  then brew install class-dump
-  else echo brew install class-dump
+if command -v brew >> /dev/null ; then
+  if [ $debug = false ];
+    then brew install class-dump
+    else echo brew install class-dump
+  fi
+else
+  echo "Don't know how to install class-dump"
 fi

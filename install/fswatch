@@ -2,34 +2,34 @@ case "$(uname)" in
   Darwin)
     if command -v nix-env >> /dev/null ; then
       if [ $debug = false ];
-        then nix-env -iA nixpkgs.xmlstarlet
-        else echo nix-env -iA nixpkgs.xmlstarlet
+        then nix-env -iA nixpkgs.fswatch
+        else echo nix-env -iA nixpkgs.fswatch
       fi
     elif command -v brew >> /dev/null ; then
       if [ $debug = false ];
-        then brew install xmlstarlet
-        else echo brew install xmlstarlet
+        then brew install fswatch
+        else echo brew install fswatch
       fi
     else
-      echo "Don't know how to install xmlstarlet"
+      echo "Don't know how to install fswatch"
     fi
     ;;
   Linux)
     if [ -n "$(command -v lsb_release)" ]; then
       if [ $(lsb_release -is) == "Ubuntu" ]; then
         if [ $debug = false ];
-          then sudo apt-get install -y xmlstarlet
-          else echo sudo apt-get install -y xmlstarlet
+          then sudo apt-get install -y fswatch
+          else echo sudo apt-get install -y fswatch
         fi
       fi
     elif [ -n "$(command -v nixos-version)" ]; then
       if [ $debug = false ];
-        then nix-env -iA nixos.xmlstarlet
-        else echo nix-env -iA nixos.xmlstarlet
+        then nix-env -iA nixos.fswatch
+        else echo nix-env -iA nixos.fswatch
       fi
     fi
     ;;
   *)
-    echo "Don't know how to install xmlstarlet"
+    echo "Don't know how to install fswatch"
     ;;
 esac

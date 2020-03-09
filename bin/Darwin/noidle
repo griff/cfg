@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pmset noidle & 
+pmset noidle &
 NOIDLE_PID=$!
 
 do_exit() {
@@ -17,6 +17,8 @@ cleanup_pmset() {
 trap do_exit INT EXIT TERM
 
 "$@"
+ret="$?"
 
 trap - INT EXIT TERM
 cleanup_pmset
+exit $ret

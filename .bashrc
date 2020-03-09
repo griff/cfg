@@ -187,12 +187,22 @@ if [ $(uname) == "Darwin" ]; then
   fi
 
   #homebrew autocompletions
-  if [ -f `brew --prefix`/etc/bash_completion ]; then
-    . `brew --prefix`/etc/bash_completion
+  if command -v brew > /dev/null; then
+    if [ -f `brew --prefix`/etc/bash_completion ]; then
+      . `brew --prefix`/etc/bash_completion
+    fi
   fi
 
   #Java home setting
-  export JAVA_HOME=$(/usr/libexec/java_home)
+  if command -v javac > /dev/null ; then
+    if [ -L "$(command -v javac)" ]; then
+      export JAVA_HOME=$(dirname $(dirname $(readlink $(command -v javac))))
+    else
+      export JAVA_HOME=$(dirname $(dirname $(command -v javac)))
+    fi
+  else
+    export JAVA_HOME=$(/usr/libexec/java_home)
+  fi
 
   # Vagrant settings
   export VAGRANT_VMWARE_CLONE_DIRECTORY=~/.vagrant_clone
