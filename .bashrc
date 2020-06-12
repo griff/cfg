@@ -107,7 +107,9 @@ if [ -f "$HOME/.gnupg/gpg-agent.conf" ]; then
   export GPG_TTY
 fi
 
-if [ -n "$(command -v atom)" ]; then
+if [ -n "$(command -v codium)" ]; then
+  export EDITOR=wcodium
+elif [ -n "$(command -v atom)" ]; then
   export EDITOR=watom
 elif [ -n "$(command -v subl)" ]; then
   export EDITOR=wsubl
