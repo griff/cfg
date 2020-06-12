@@ -100,7 +100,7 @@ function scratch {
 case "$(uname)" in
   Darwin)
     function alert {
-      terminal-notifier -sender com.apple.Terminal -activate com.apple.Terminal -message "$([ $? = 0 ] && echo terminal || echo error)" -title "$(history|tail -n1|sed -E -e 's/^[ ]*[0-9]+[ ]*//;s/[;&|][ ]*alert$//')"
+      terminal-notifier -sender com.apple.Terminal2 -activate com.apple.Terminal -message "$([ $? = 0 ] && echo terminal || echo error)" -title "$(history|tail -n1|sed -E -e 's/^[ ]*[0-9]+[ ]*//;s/[;&|][ ]*alert$//')"
     }
     ;;
   Linux)
