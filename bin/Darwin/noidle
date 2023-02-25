@@ -11,7 +11,7 @@ do_exit() {
 }
 
 cleanup_pmset() {
-  echo "Killing pmset..."
+  echo "Killing pmset..." 1>&2
   kill $NOIDLE_PID
 }
 trap do_exit INT EXIT TERM

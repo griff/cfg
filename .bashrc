@@ -196,19 +196,24 @@ if [ $(uname) == "Darwin" ]; then
   fi
 
   #Java home setting
-  if command -v javac > /dev/null ; then
-    if [ -L "$(command -v javac)" ]; then
-      export JAVA_HOME=$(dirname $(dirname $(readlink $(command -v javac))))
+  if [ -z "$JAVA_HOME" ]; then
+    if command -v javac > /dev/null ; then
+      if [ -L "$(command -v javac)" ]; then
+        export JAVA_HOME=$(dirname $(dirname $(readlink $(command -v javac))))
+      else
+        export JAVA_HOME=$(dirname $(dirname $(command -v javac)))
+      fi
     else
-      export JAVA_HOME=$(dirname $(dirname $(command -v javac)))
+      export JAVA_HOME=$(/usr/libexec/java_home)
     fi
+    echo "JAVA_HOME was set to $JAVA_HOME"
   else
-    export JAVA_HOME=$(/usr/libexec/java_home)
+    echo "JAVA_HOME is $JAVA_HOME"
   fi
 
   # Vagrant settings
   export VAGRANT_VMWARE_CLONE_DIRECTORY=~/.vagrant_clone
-  #export VAGRANT_DEFAULT_PROVIDER=vmware_fusion
+  export VAGRANT_DEFAULT_PROVIDER=vmware_desktop
 
   # docker setting
   #export DOCKER_HOST=tcp://localhost:4243
@@ -279,12 +284,16 @@ export UMPLOY_KEY="$HOME/.cfg/umploy.key"
 
 export PATH="$HOME/.cargo/bin:$PATH"
 
+adjust_prompt() {
+  if [ -n "$IN_NIX_SHELL" ]; then
+      prompt_tag "nix-shell($name)"
+      export P_PS1_PREFIX="nix-shell($name) "
+  fi
+}
+P_PS1_PREFIX=${P_PS1_PREFIX:-""}
+
 # Update prompt title so that Timing gets updated correctly
-PROMPT_TITLE='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\007"'
-if [ -n "$IN_NIX_SHELL" ]; then
-  prompt_tag "nix-shell($name)"
-  PROMPT_TITLE='echo -ne "\033]0;nix-shell ${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\007"'
-fi
+PROMPT_TITLE='adjust_prompt;echo -ne "\033]0;${P_PS1_PREFIX}${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\007"'
 PROMPT_COMMAND="${PROMPT_TITLE}; ${PROMPT_COMMAND}"
 
 # Make sure the history is updated at every command
