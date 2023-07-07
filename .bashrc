@@ -24,7 +24,7 @@ fi
 
 if [ -d "$HOME/.nix-profile/etc" ]; then
   if [ -d "$HOME/.nix-profile/etc/profile.d" ]; then
-    for k in $HOME/.nix-profile/etc/profile.d/* ; do
+    for k in $HOME/.nix-profile/etc/profile.d/*.sh ; do
       . "$k"
     done
   fi
@@ -38,7 +38,7 @@ elif [ -f "$HOME/.nixpkgs/darwin-configuration.nix" ]; then
   true
 elif [ -d "/nix/var/nix/profiles/default/etc" ]; then
   if [ -d "/nix/var/nix/profiles/default/etc/profile.d" ]; then
-    for k in /nix/var/nix/profiles/default/etc/profile.d/* ; do
+    for k in /nix/var/nix/profiles/default/etc/profile.d/*.sh ; do
       . "$k"
     done
   fi
@@ -161,6 +161,7 @@ fi
 # }}}
 # OSX specific config {{{
 if [ $(uname) == "Darwin" ]; then
+  export BASH_SILENCE_DEPRECATION_WARNING=1
   export MANPATH=/usr/local/man:/opt/local/share/man:$MANPATH
   export DYLD_FALLBACK_LIBRARY_PATH=$HOME/lib:/usr/local/lib:/lib:/usr/lib:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/
 
